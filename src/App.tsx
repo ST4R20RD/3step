@@ -1,24 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useContext } from "react";
+import Wrapper from "./components/Wrapper";
+import { FormContext, FormContextType } from "./context/FormContext";
+import Result from "./components/Result";
+import { Modal } from "./components/Modal";
 
 function App() {
+  const { result, isResultOpen, restartForm } = useContext(FormContext) as FormContextType;
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="flex justify-center items-center w-screen h-screen bg-Charcoal ">
+      <Wrapper />
+      {result && isResultOpen && (
+        <Modal>
+          <Result
+            date={result.date}
+            time={result.time}
+            guests={result.guests}
+            restart={restartForm}
+          />
+        </Modal>
+      )}
     </div>
   );
 }
